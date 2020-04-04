@@ -5,17 +5,32 @@ class Solution {
      * @return Integer[][]
      */
     function threeSum($nums) {
-        $count = count($nums) - 2;
-        $result=[];
-        print_r($count);
-        for ($x = 0; $x < $count; $x++){
-          //  print_r($nums[$x]." ".$nums[$x+1]." ".$nums[$x+2]."; ");
-            if($nums[$x]+ $nums[$x+1] + $nums[$x+2] == 0){
-                //print_r($nums[$x]+ $nums[$x+1] + $nums[$x+2]);
-                array_push($result,"{$nums[$x]},{$nums[$x+1]},{$nums[$x+2]}");
-               // print_r($result);
+        $res = [];
+        sort($nums);
+        $len = count($nums);
+        for ($i = 0; $i < $len; $i++) {
+            if ($nums[$i] > 0) continue;
+
+            if ($i > 0 && $nums[$i -1] == $nums[$i]) continue;
+
+            $front = $i + 1;
+            $rear = $len - 1;
+            while ($front < $rear) {
+                $sum = $nums[$i] + $nums[$front] + $nums[$rear];
+                if ($sum == 0) {
+                    $res[] = [$nums[$i], $nums[$front], $nums[$rear]];
+                    while ($front < $rear && $nums[$front] == $nums[$front + 1]) $front++;
+                    while ($front < $rear && $nums[$rear - 1] == $nums[$rear]) $rear--;
+                    $front++;
+                    $rear--;
+                } elseif ($sum > 0) {
+                    $rear--;
+                } else {
+                    $front++;
+                }
             }
         }
-        return $result;
+
+        return $res;
     }
 }
