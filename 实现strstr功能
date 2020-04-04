@@ -1,0 +1,48 @@
+class Solution {
+
+    /**
+     * @param String $haystack
+     * @param String $needle
+     * @return Integer
+     */
+    function strStr($haystack, $needle) {
+                
+        if ($haystack == $needle) {
+            return 0;
+        }
+        
+        $length = strlen($haystack);
+        $n_length = strlen($needle);
+        
+        if ($n_length <= 0) {
+            return 0;
+        }
+        
+        if ($length <= 0) {
+            return -1;
+        }
+        
+        if ($n_length > $length) {
+            return -1;
+        }
+        
+        // 这里有个最大长度判断，具体设置多少不清楚，我这里设置的 1000
+        if ($length >= 1000) {
+            return -1;
+        }
+       
+        for ($i=0; $i<$length; $i++) {
+            $j = 0;
+            while($haystack[$i+$j] == $needle[$j] && $j < $n_length) {
+                $j++;
+            }
+            
+            if ($n_length == $j) {
+                return $i;
+            }
+        }
+        
+        return -1;
+
+    }
+}
