@@ -1,0 +1,22 @@
+Example:找出数组中两个元素相加等于目标值的元素的下标
+Given nums = [2, 7, 11, 15], target = 9,
+Because nums[0] + nums[1] = 2 + 7 = 9,
+return [0, 1].
+
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @param Integer $target
+     * @return Integer[]
+     */
+    function twoSum($nums, $target) {
+        for($i=0;$i<count($nums);$i++){
+            for($j=$i+1;$j<count($nums);$j++){
+                if(($nums[$i]+$nums[$j])==$target){
+                    return array($i,$j);
+                }                
+            }
+        }
+    }
+}
