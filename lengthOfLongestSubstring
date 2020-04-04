@@ -1,0 +1,33 @@
+Given a string, find the length of the longest substring without repeating characters.
+Example 1:
+Input: "abcabcbb"
+Output: 3 
+Explanation: The answer is "abc", with the length of 3. 
+
+class Solution {
+
+    /**
+     * @param String $s
+     * @return Integer
+     */
+    function lengthOfLongestSubstring($s) {
+        $n=strlen($s);
+        $ans=0;
+        $set=array();
+        $i=$j=$l=0;    
+        while($i<$n && $j<$n){
+           
+            if(!in_array(substr($s,$j,1),$set)){
+                $c=substr($s,$j++,1);
+                array_push($set,$c);
+                $ans=max($ans,$j-$i);
+            }else{
+                $r=substr($s,$i++,1);
+                $l=array_search($r,$set);
+                unset($set[$l]);
+            }
+        }
+        return $ans;
+        
+    }
+}
