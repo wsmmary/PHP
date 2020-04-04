@@ -1,0 +1,68 @@
+Given a 2D board and a word, find if the word exists in the grid.
+
+The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
+
+Example:
+
+board =
+[
+  ['A','B','C','E'],
+  ['S','F','C','S'],
+  ['A','D','E','E']
+]
+
+Given word = "ABCCED", return true.
+Given word = "SEE", return true.
+Given word = "ABCB", return false.
+
+class Solution {
+
+    /**
+     * @param String[][] $board
+     * @param String $word
+     * @return Boolean
+     */
+    function exist($board, $word) {
+                for($i=0;$i<count($board);$i++){
+            for($j=0;$j<count($board[0]);$j++){
+                if($this->dfs($board, $i, $j, $word, 0)){
+                    return true;
+                }
+            }
+        }
+        return false;
+
+    }
+        //返回true，表示从$start开始能通到$word结尾。
+    function dfs($board, $i, $j, $word, $start){
+        if($i<0 || $j<0 || $i>count($board)-1 || $j>count($board[0])-1){
+            return false;
+        }
+
+        if($board[$i][$j] != $word[$start]){
+            return false;
+        }
+
+        if($start == strlen($word)-1){
+            return true;
+        }
+
+        $board[$i][$j] = '#';
+
+        if($this->dfs($board, $i-1, $j, $word, $start+1)) {
+            return true;
+        }
+        if($this->dfs($board, $i, $j-1, $word, $start+1)) {
+            return true;
+        }
+        if($this->dfs($board, $i+1, $j, $word, $start+1)) {
+            return true;
+        }
+        if($this->dfs($board, $i, $j+1, $word, $start+1)) {
+            return true;
+        }
+
+        return false;
+    }
+
+}
