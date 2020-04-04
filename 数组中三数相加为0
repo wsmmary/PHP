@@ -1,0 +1,21 @@
+class Solution {
+
+    /**
+     * @param Integer[] $nums
+     * @return Integer[][]
+     */
+    function threeSum($nums) {
+        $count = count($nums) - 2;
+        $result=[];
+        print_r($count);
+        for ($x = 0; $x < $count; $x++){
+          //  print_r($nums[$x]." ".$nums[$x+1]." ".$nums[$x+2]."; ");
+            if($nums[$x]+ $nums[$x+1] + $nums[$x+2] == 0){
+                //print_r($nums[$x]+ $nums[$x+1] + $nums[$x+2]);
+                array_push($result,"{$nums[$x]},{$nums[$x+1]},{$nums[$x+2]}");
+               // print_r($result);
+            }
+        }
+        return $result;
+    }
+}
