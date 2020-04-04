@@ -1,0 +1,27 @@
+Given a 32-bit signed integer, reverse digits of an integer.
+Example 1:
+Input: 123
+Output: 321
+
+class Solution {
+
+    /**
+     * @param Integer $x
+     * @return Integer
+     */
+    function reverse($x) {
+
+        $f = $x<0?true:false;
+        $x = $f?abs($x):$x;
+        $x = strval($x);
+        
+        $res = intval(strrev($x));
+        $res = $f?-1*$res:$res;
+        if(-2147483648<$res && 2147483647>$res){
+            return $res;
+        }else{
+            return 0;
+        }
+
+    }
+}
