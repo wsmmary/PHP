@@ -1,0 +1,46 @@
+给定一个 n × n 的二维矩阵表示一个图像。
+
+将图像顺时针旋转 90 度。
+
+说明：
+
+你必须在原地旋转图像，这意味着你需要直接修改输入的二维矩阵。请不要使用另一个矩阵来旋转图像。
+
+class Solution {
+
+    /**
+     * @param Integer[][] $matrix
+     * @return NULL
+     */
+    function rotate(&$matrix) {
+                // for ($i = 0; $i < count($matrix); $i++) {
+        //     for ($j= 0; $j< count($matrix); $j++) {
+        //         array_push($matrix[$i],$matrix[$tem-$j][$i]);
+        //     }
+        // }
+        // for ($k = 0; $k < $tem+1; $k++) {
+        //     array_splice($matrix[$k], 0, $tem+1);
+        // }
+        // return $matrix;
+
+        $n = count($matrix);
+        for($i=0;$i<$n;$i++){
+            for($j=$i;$j<$n;$j++){
+                $tmp = $matrix[$i][$j];
+                $matrix[$i][$j] = $matrix[$j][$i];
+                $matrix[$j][$i] = $tmp;
+            }
+        }
+
+        // print_r($matrix);
+
+        for($i=0;$i<$n;$i++){
+            for($j=0;$j<floor($n/2);$j++){
+                $tmp = $matrix[$i][$j];
+                $matrix[$i][$j] = $matrix[$i][$n-$j-1];
+                $matrix[$i][$n-$j-1] = $tmp;
+            }
+        }
+
+    }
+}
