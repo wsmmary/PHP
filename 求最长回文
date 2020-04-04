@@ -1,0 +1,44 @@
+class Solution {
+
+    /**
+     * @param String $s
+     * @return String
+     */
+    function longestPalindrome($s) {
+        $len = strlen($s);
+        if ($len < 2) return $s;
+
+        $start = $end = 0;
+        for ($i = 0; $i < $len; $i++) {
+            // 奇数中心的长度
+            $odd_len  = $this->getCenterLen($s, $i, $i);
+            // 偶数中心的长度
+            $even_len = $this->getCenterLen($s, $i, $i + 1);
+            $max_len = max($odd_len, $even_len);
+            if ($max_len > ($end - $start + 1)) {
+                // 计算左下标的时候，长度需要-1，奇数其实不需要，偶数需要。这个地方不是特别好理解，画图有助于理解
+                $start = $i - intval(($max_len - 1) / 2);
+                $end = $i + intval($max_len / 2);
+            }
+        }
+
+        return substr($s, $start, $end - $start + 1);
+    }
+    /**
+     * @param  String $s
+     * @param int $left 左指针
+     * @param int $right 右指针
+     * @return int
+     */
+    public function getCenterLen($s, $left, $right)
+    {
+        while ($left >= 0 && $right < strlen($s) && $s[$left] == $s[$right]) {
+            $left--;
+            $right++;
+        }
+
+        // 因为最后一次满足条件后，又执行了一次$left--和$right++，所以需要减去一位
+        return $right - $left - 1;
+    }
+
+}
